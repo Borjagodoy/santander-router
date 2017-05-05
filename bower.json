@@ -1,0 +1,20 @@
+{
+  "name": "santander-router",
+  "main": "santander-router.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0-rc.2",
+    "app-route": "PolymerElements/app-route#^0.9.3",
+    "paper-tabs": "PolymerElements/paper-tabs#2.0-preview",
+    "neon-animation": "PolymerElements/neon-animation#2.0-preview",
+    "iron-pages": "PolymerElements/iron-pages#2.0-preview"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
+    "web-component-tester": "v6.0.0-prerelease.5",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.5"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0-rc.2"
+  }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>santander-router demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../santander-router.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    </style>
+</head>
+
+<body>
+    <div class="vertical-section-container centered">
+        <h3>Basic santander-router demo</h3>
+        <demo-snippet>
+            <template is="dom-bind">
+              <h1>Role: Admin</h1>
+              <santander-router
+              tabs-tags='[{"key":"hola", "label":"hola"}, {"key":"Adios", "label":"Adios"}]'
+              roles-view='{"admin":["hola"]}'
+              current-role="admin"
+              >
+                <p key="hola">Hola pedro</p>
+                <p key="Adios">Adios pedro</p>
+              </santander-router>
+              
+              <h1>Role: Public</h1>
+              <santander-router
+              tabs-tags='[{"key":"hola", "label":"hola"}, {"key":"Adios", "label":"Adios"}, {"key":"queTal", "label":"Que tal"}]'
+              roles-view='{"admin":["hola"], "public":["Adios", "Que tal"]}'
+              current-role="public"
+              >
+                <p key="hola">Hola pedro</p>
+                <p key="Adios">Adios pedro</p>
+                <p key="queTal">Que tal Pedro</p>
+
+              </santander-router>
+        </template>
+        </demo-snippet>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
+<link rel="import" href="../app-route/app-route.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../neon-animation/neon-animatable.html">
+
+<!--
+`santander-router`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="santander-router">
+    <template>
+    <style>
+      :host {
+        display: block;
+      }
+      a {
+        flex: none;
+        display: flex;
+        widows: 100%;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+      }
+    </style>
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/" data="{{data}}">
+        </app-route>
+
+        <paper-tabs selected='{{data.tabName}}' attr-for-selected='key'>
+          <template is="dom-repeat" items="{{tabsByTheCurrentRole}}">
+                <paper-tab key='{{item.key}}'><a href="/{{item.key}}">{{item.label}}</a></paper-tab>
+          </template>
+    </paper-tabs>
+
+    <iron-pages selected='{{currentPage}}' attr-for-selected='key'>
+        <slot></slot>
+        <p key="403">403</p>
+    </iron-pages>
+    </template>
+
+    <script>
+        class MyElement extends Polymer.Element {
+            static get is() {
+                return 'santander-router';
+            }
+            static get properties() {
+                return {
+                    currentPage:  {
+                        type: String,
+                        value: '',
+                        observer: '_pageChanged'
+                    },
+                    tabsTags: {
+                        type: Array,
+                        value: []
+                    },
+                    tabsByTheCurrentRole: {
+                        type: Array,
+                        computed: '_getTabsByTheRole(tabsTags)'
+                    },
+                    rolesView: {
+                        type: Object,
+                        value: {}
+                    },
+                    currentRole: {
+                        type: String,
+                        value: 'all'
+                    }
+                };
+            }
+            static get observers() {
+                return [
+                    '_isSelected(data.tabName)',
+                ];
+            }
+
+            _isSelected(view) {
+                let currentPage = this.currentRole === 'all' || this.rolesView[this.currentRole].includes(view) ? view : '403';
+                this.set('currentPage', currentPage);
+            }
+
+            _pageChanged(currentPage) {
+                // Load page import on demand. Show 404 page if fails
+                var resolvedPageUrl = this.resolveUrl(currentPage + '.html');
+                Polymer.importHref(
+                    resolvedPageUrl,
+                    null,
+                    //this._showPage404.bind(this),
+                    true);
+            }
+
+            _getTabsByTheRole(tabsTags)  {
+                if (this.currentRole === 'all') {
+                    return this.tabsTags;
+                } else {
+                    let tabsByCurrentRole = this.rolesView[this.currentRole];
+                    return tabsTags.filter(function(tabTag) {
+                        return tabsByCurrentRole.includes(tabTag.label);
+                    })
+                }
+            }
+
+        }
+
+        window.customElements.define(MyElement.is, MyElement);
+    </script>
+</dom-module>
