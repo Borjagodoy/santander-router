@@ -18,34 +18,23 @@
       :host {
         display: block;
       }
-      a {
-        flex: none;
-        display: flex;
-        widows: 100%;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-      }
     </style>
-        <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/" data="{{data}}">
-        </app-route>
-
-        <paper-tabs selected='{{data.tabName}}' attr-for-selected='key'>
+    </app-route>
+        <!--<paper-tabs selected='{{data.tabName}}' attr-for-selected='key'>
           <template is="dom-repeat" items="{{tabsByTheCurrentRole}}">
                 <paper-tab key='{{item.key}}'><a href="/{{item.key}}">{{item.label}}</a></paper-tab>
           </template>
-    </paper-tabs>
+         </paper-tabs>-->
 
     <iron-pages selected='{{currentPage}}' attr-for-selected='key'>
         <slot></slot>
-        <p key="403">403</p>
     </iron-pages>
     </template>
 
     <script>
-        class MyElement extends Polymer.Element {
+        class SantanderRouter extends Polymer.Element {
             static get is() {
                 return 'santander-router';
             }
@@ -56,11 +45,7 @@
                         value: '',
                         observer: '_pageChanged'
                     },
-                    tabsTags: {
-                        type: Array,
-                        value: []
-                    },
-                    tabsByTheCurrentRole: {
+                      tabsByTheCurrentRole: {
                         type: Array,
                         computed: '_getTabsByTheRole(tabsTags)'
                     },
@@ -108,6 +93,6 @@
 
         }
 
-        window.customElements.define(MyElement.is, MyElement);
+        window.customElements.define(StandanderRouter.is, SntanderRouter);
     </script>
 </dom-module>
